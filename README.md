@@ -1,8 +1,12 @@
-# Otpravkarr Docker Image (Nightly)
+# Otpravkarr Docker image — retained release channel
 
-Nightly builds from the latest commit on `main`.
+This branch retains historical packaging. Its legacy build and update workflows
+are disabled. The maintained build channel is `nightly`; do not treat a nightly
+image as a stable release.
 
-For full documentation, see the [release branch](https://github.com/engels74/otpravkarr-docker/tree/release).
+For current installation instructions, Docker Compose examples and published
+image tags, use the [Otpravkarr container documentation](https://web.edb.fi/containers/otpravkarr/)
+and the [maintained nightly README](https://github.com/edbfi/otpravkarr-docker/blob/nightly/README.md).
 
 ## Environment Variables
 
@@ -24,3 +28,8 @@ Then provide it via your compose file or an env file kept outside version contro
 environment:
   - OTPRAVKARR_SECRET=<paste value here>
 ```
+
+## License
+
+- Docker packaging: [GPL-3.0 license](LICENSE).
+- Application: [AGPL-3.0 source repository](https://github.com/edbfi/otpravkarr).
