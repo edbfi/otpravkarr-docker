@@ -24,3 +24,7 @@ Then provide it via your compose file or an env file kept outside version contro
 environment:
   - OTPRAVKARR_SECRET=<paste value here>
 ```
+
+## Building
+
+Run `./build.sh amd64` or `./build.sh arm64` from the repository root to build the image locally. It needs `docker` and `jq`, passes the `meta.json` keys as build arguments, and the Dockerfiles verify the source archive against `source_sha256`. No workflow in this repository builds or publishes images.
