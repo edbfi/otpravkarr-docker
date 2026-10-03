@@ -32,6 +32,7 @@ RUN find /etc/s6-overlay/s6-rc.d -name "run*" -execdir chmod +x {} +
 COPY --from=builder /build/build "${APP_DIR}/build"
 COPY --from=builder /build/node_modules "${APP_DIR}/node_modules"
 COPY --from=builder /build/package.json "${APP_DIR}/package.json"
+COPY --from=builder /build/scripts/serve.ts "${APP_DIR}/scripts/serve.ts"
 
 RUN mkdir -p "${CONFIG_DIR}/data" && \
     rm -rf "${APP_DIR}/data" && ln -s "${CONFIG_DIR}/data" "${APP_DIR}/data" && \
