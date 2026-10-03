@@ -1,6 +1,6 @@
 # Otpravkarr Docker Image (Nightly)
 
-Nightly images use a reviewed, pinned application revision and pass native amd64/arm64 runtime validation before manual publication.
+Nightly images build from the pinned application revision and source checksum in `meta.json`.
 
 Documentation: [web.edb.fi](https://web.edb.fi/containers/otpravkarr/). The inactive release branch is preserved; no stable source tag has been selected.
 
@@ -24,19 +24,3 @@ Then provide it via your compose file or an env file kept outside version contro
 environment:
   - OTPRAVKARR_SECRET=<paste value here>
 ```
-
-## Validation and publication
-
-Both architectures use pinned Bun and native base-image digests, a checksummed application source archive, the existing Hotio/s6 layout and persistent `/config` data. CI checks secret rejection, setup/health, exact SQL migration bytes, encrypted persistence across restart/replacement, a missing configured database, and clean shutdown. Live Plex/Dispatcharr connections are not exercised.
-
-Publication is manual from the matching nightly revision after full final CI. It publishes only tested archives and rejects stale workflow/branch revisions or failed runtime evidence. Legacy release/update workflows remain disabled.
-
-## Runtime fixture cleanup
-
-Native amd64/arm64 CI uses disposable state and local container networking. Its
-always-running aggregate requires both image jobs and hygiene. Runtime cleanup
-removes the test containers, volumes and networks, checks their absence, and
-deletes generated keys and database backups. Runner cancellation enters the same
-cleanup path. Artifacts use an explicit allowlist: raw logs, databases and secret
-files are never uploaded. Live media services and VPN paths remain outside this
-fixture's coverage.
