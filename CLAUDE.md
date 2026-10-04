@@ -5,13 +5,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Which branch you are on matters
 
 Packaging-only repo for the Otpravkarr image: no application source here. Both Dockerfiles download
-`https://github.com/engels74/otpravkarr/archive/${VERSION}.tar.gz` and build it in a `oven/bun:alpine` stage.
+`https://github.com/edbfi/otpravkarr/archive/${VERSION}.tar.gz` and build it in a `oven/bun:alpine` stage.
 
-`release` (the default branch) is a retained legacy channel. Per `README.md` its build and update
-workflows are disabled, so pushing here publishes nothing even though `.github/workflows/call-build.yml`
-still declares a `push` trigger. The maintained channel is `origin/nightly`, which has diverged far
-beyond `meta.json` (own Dockerfiles, `ci.yml`, `tools/`, pinned digests). Don't merge or cherry-pick
-between the two; port a fix by hand and check that it applies to that branch's files.
+`release` (the default branch) builds the latest otpravkarr tag; `nightly` builds the latest commit
+on `main`. Both follow Hotio's layout and are built by the same workflows: `.github/workflows/call-build.yml`
+builds and publishes an image on every push to any branch except `workflows`, and `call-update.yml`
+refreshes `meta.json` hourly. The two branches differ only in `meta.json`'s channel values
+(`description`, `latest`, `version`, `version__command`) and in the docs (`README.md`, this file,
+`AGENTS.md` and `.github/workflows/pullfrog.yml` exist only on `release`). Keep everything else
+identical: port a fix to the Dockerfiles, `build.sh` or `root/` to both branches.
 
 ## Commands
 
@@ -21,15 +23,17 @@ No manifest, test suite, linter or formatter exists. The only validation is a Do
 ./build.sh amd64   # or arm64; needs docker + jq; tags "<repo-dir-name>-amd64"
 ```
 
-`build.sh` turns every `meta.json` key into an uppercase `--build-arg`, including the `*__COMMAND`
-keys (unused, harmless). On `release`, `meta.json` has `"version": "null"`, so the builder fetches
+`build.sh` turns every `meta.json` key except the `*__command` keys into an uppercase `--build-arg`;
+`./build.sh update` evaluates the `*__command` keys the way `call-update` does and rewrites
+`meta.json`. On `release`, `meta.json` has `"version": "null"`, so the builder fetches
 `archive/null.tar.gz` and fails. To build locally, put a real upstream ref in `version` and don't
 commit that edit.
 
 ## meta.json
 
 - The Dockerfiles consume only `VERSION`, `UPSTREAM_IMAGE`, `UPSTREAM_TAG_SHA` and `IMAGE_STATS`.
-  Nothing in this repo reads the other keys; the called workflows in `engels74/base-image@workflows` do.
+  Besides `build.sh`, nothing in this repo reads the other keys; the called workflows in
+  `edbfi/base-image@workflows` do.
 - `version` and `upstream_tag_sha` are values that `github-actions[bot]` resolved from the matching
   `*__command` shell snippet (the `Modified: meta.json` commits). To change how a value is found,
   edit the `__command` string, not the value.
@@ -39,7 +43,7 @@ commit that edit.
 
 - `APP_DIR`, `CONFIG_DIR`, `UMASK`, the `hotio` user, `/etc/s6-overlay/scripts/bash-functions`,
   and the `init-setup` / `init-wireguard` units all come from the base image
-  (`ghcr.io/engels74/base-image:alpinevpn`), so none are defined in this repo. Use the variables;
+  (`ghcr.io/edbfi/base-image:alpinevpn`), so none are defined in this repo. Use the variables;
   don't hardcode the paths they resolve to.
 - Persistence is a symlink: the Dockerfile replaces `${APP_DIR}/data` with a link to
   `${CONFIG_DIR}/data`. Keep it, or app data stops landing under `${CONFIG_DIR}`.
