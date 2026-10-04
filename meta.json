@@ -1,7 +1,6 @@
 {
-  "description": "Every commit to main",
-  "latest": false,
-  "packages_hash": "9b616e04ffd2febaa7233517935ae8570774710f",
+  "description": "Releases",
+  "latest": true,
   "test_amd64": false,
   "test_arm64": false,
   "test_url": "http://localhost:3000",
