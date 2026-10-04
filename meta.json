@@ -9,6 +9,6 @@
   "upstream_tag_sha": "alpinevpn",
   "upstream_digest_amd64": "sha256:1de40909540896a3bcf7bdfa04ca1b928fe2dbe79997ec426a34d691dbe58de0",
   "upstream_digest_arm64": "sha256:18ba9321016760dbc3bf332324fe032ade7630622f32a417cf67b263ae8705f5",
-  "version": "35167eee9fb10b073489415bf7370cfa51baa2e3",
-  "source_sha256": "2e3b2671d3d26ecb261c8d089629517d26716aee77cca4b79cbbca1239ea55db"
+  "version": "31865c9ec3da7c89f774dc04f449272fba68343a",
+  "source_sha256": "decdb55ca32e61eba889e1a5c99b06404edc9c218e3061bf4d0bc75a45cacaa3"
 }
