@@ -42,4 +42,6 @@ environment:
 
 ## Building
 
-Run `./build.sh amd64` or `./build.sh arm64` from the repository root to build the image locally. It needs `docker` and `jq`, passes the `meta.json` keys as build arguments, and the Dockerfiles verify the source archive against `source_sha256`. No workflow in this repository builds or publishes images.
+Every push to `nightly` runs `.github/workflows/build-nightly.yml`, which calls the shared build workflow in [edbfi/base-image](https://github.com/edbfi/base-image): it builds linux/amd64 and linux/arm64 on GitHub-hosted runners, smoke-tests each image with the `test_amd64`, `test_arm64` and `test_url` settings in `meta.json`, and publishes the images to `ghcr.io/edbfi/otpravkarr-docker`.
+
+`./build.sh` stays for local builds: run `./build.sh amd64` or `./build.sh arm64` from the repository root. It needs `docker` and `jq`, passes the `meta.json` keys as build arguments, and the Dockerfiles verify the source archive against `source_sha256`.
