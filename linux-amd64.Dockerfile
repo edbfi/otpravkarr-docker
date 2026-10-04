@@ -18,7 +18,11 @@ RUN mkdir /build && \
 
 FROM ${UPSTREAM_IMAGE}:${UPSTREAM_TAG_SHA}
 ARG IMAGE_STATS
-ENV IMAGE_STATS=${IMAGE_STATS} PORT=3000 WEBUI_PORTS="3000/tcp,3000/udp"
+# Docker stops a container after 10 s by default; the Hotio s6 teardown after the app exits
+# takes about 3.3 s, so the app may drain requests for 5 s and still exit in time. Override
+# with -e SHUTDOWN_TIMEOUT=<seconds> together with a longer stop timeout (docker stop -t).
+ENV IMAGE_STATS=${IMAGE_STATS} PORT=3000 WEBUI_PORTS="3000/tcp,3000/udp" \
+    SHUTDOWN_TIMEOUT=5
 EXPOSE ${PORT}
 
 RUN apk add --no-cache curl unzip && \
