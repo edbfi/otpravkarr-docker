@@ -10,6 +10,21 @@ and the [maintained nightly README](https://github.com/edbfi/otpravkarr-docker/b
 
 ## Environment Variables
 
+### `ORIGIN`
+
+Set `ORIGIN` to the address people open in the browser, for example `http://192.168.1.10:3000`. It is **required when serving plain HTTP**: without it Otpravkarr assumes `https://<Host>`, so signing in and saving changes fail. Leave it unset only behind an HTTPS reverse proxy that passes the original `Host`. It must be a bare origin (no path, query or credentials), or the app does not start.
+
+```yaml
+environment:
+  - ORIGIN=http://192.168.1.10:3000
+```
+
+Behind a reverse proxy, set `ADDRESS_HEADER=x-forwarded-for` (and `XFF_DEPTH` to the number of proxies, default `1`) only when every request goes through that proxy, so the app sees the real client address. `PROTOCOL_HEADER` and `HOST_HEADER` are for setups without `ORIGIN`, behind a trusted proxy.
+
+### `SHUTDOWN_TIMEOUT`
+
+Seconds the app waits for open requests when the container stops. The image sets `5` so a plain `docker stop` (10 s) finishes cleanly; if you raise it, raise the stop timeout too (`docker stop -t`, `stop_grace_period`).
+
 ### `OTPRAVKARR_SECRET` (required)
 
 A stable secret of at least **32 characters** that persists across container restarts. The container will refuse to start if this variable is unset or too short.
