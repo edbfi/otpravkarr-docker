@@ -1,8 +1,8 @@
 # Otpravkarr Docker Image (Nightly)
 
-Nightly images build from the pinned application revision and source checksum in `meta.json`.
+Nightly builds from the latest commit on `main`.
 
-Documentation: [web.edb.fi](https://web.edb.fi/containers/otpravkarr/). The inactive release branch is preserved; no stable source tag has been selected.
+Documentation: [web.edb.fi](https://web.edb.fi/containers/otpravkarr/). The `release` branch builds the latest otpravkarr release tag; none has been published yet.
 
 ## Environment Variables
 
@@ -42,4 +42,6 @@ environment:
 
 ## Building
 
-Run `./build.sh amd64` or `./build.sh arm64` from the repository root to build the image locally. It needs `docker` and `jq`, passes the `meta.json` keys as build arguments, and the Dockerfiles verify the source archive against `source_sha256`. No workflow in this repository builds or publishes images.
+Images are built and published by the Hotio workflows in `edbfi/base-image`. `.github/workflows/call-build.yml` runs on every push (except to a branch named `workflows`) and builds linux/amd64 and linux/arm64, then publishes `ghcr.io/edbfi/otpravkarr-docker:<branch>`, `<branch>-<commit>` and `<branch>-<version>`. `.github/workflows/call-update.yml` runs hourly: it evaluates the `__command` keys in `meta.json` (the latest `main` commit as `version`, the current `alpinevpn` base image as `upstream_tag_sha`) and commits any change, which triggers a new build. The workflow's smoke test is off (`test_amd64`, `test_arm64`), because the container does not start without `OTPRAVKARR_SECRET`.
+
+To build locally, run `./build.sh amd64` or `./build.sh arm64` from the repository root (needs `docker` and `jq`); `./build.sh update` refreshes `meta.json` the way the hourly workflow does.
