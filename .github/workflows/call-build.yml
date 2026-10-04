@@ -1,0 +1,16 @@
+name: call-build
+
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:    
+      - 'workflows'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  call:
+    uses: edbfi/base-image/.github/workflows/build-on-call.yml@workflows
+    secrets: inherit
