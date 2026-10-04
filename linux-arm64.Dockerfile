@@ -7,12 +7,15 @@ FROM oven/bun:alpine AS builder
 RUN apk add --no-cache curl build-base python3
 ARG VERSION
 ENV COMMIT_TAG=${VERSION}
+# bun install runs the root lifecycle scripts even with --production, and prepare needs dev
+# dependencies (svelte-kit). Remove prepare and postinstall before the production install.
 RUN mkdir /build && \
     curl -fsSL "https://github.com/engels74/otpravkarr/archive/${VERSION}.tar.gz" | tar xzf - -C "/build" --strip-components=1 && \
     cd /build && \
     bun install --frozen-lockfile && \
     bun run build && \
     rm -rf node_modules && \
+    bun -e 'const p = await Bun.file("package.json").json(); delete p.scripts.prepare; delete p.scripts.postinstall; await Bun.write("package.json", JSON.stringify(p));' && \
     bun install --production --frozen-lockfile
 
 
