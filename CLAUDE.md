@@ -7,12 +7,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Packaging-only repo for the Otpravkarr image: no application source here. Both Dockerfiles download
 `https://github.com/edbfi/otpravkarr/archive/${VERSION}.tar.gz` and build it in a `oven/bun:alpine` stage.
 
-`release` (the default branch) builds the latest otpravkarr tag; `nightly` builds the latest commit
-on `main`. Both follow Hotio's layout and are built by the same workflows: `.github/workflows/call-build.yml`
-builds and publishes an image on every push to any branch except `workflows`, and `call-update.yml`
-refreshes `meta.json` hourly. The two branches differ only in `meta.json`'s channel values
-(`description`, `latest`, `version`, `version__command`) and in the docs (`README.md`, this file,
-`AGENTS.md` and `.github/workflows/pullfrog.yml` exist only on `release`). Keep everything else
+`release` (the default branch) builds otpravkarr's latest published, non-prerelease GitHub Release
+with a plain `X.Y.Z` tag (`version__command` reads `releases/latest`; a bare tag publishes nothing);
+`nightly` builds the latest commit on `main`. Publish a backport release with "Set as the latest
+release" unchecked, or `release` moves back to that version. Both follow Hotio's layout and are built
+by the same workflows: `.github/workflows/call-build.yml` builds and publishes an image on every push
+to any branch except `workflows`, and `call-update.yml` refreshes `meta.json` hourly. The two branches
+differ only in `meta.json`'s channel values (`description`, `latest`, `version`, `version__command`),
+in `README.md`, and in files that exist only on `release`: this file, `AGENTS.md`,
+`.github/workflows/pullfrog.yml` and `.github/workflows/immortality.yml`. Keep everything else
 identical: port a fix to the Dockerfiles, `build.sh` or `root/` to both branches.
 
 ## Commands
@@ -25,9 +28,9 @@ No manifest, test suite, linter or formatter exists. The only validation is a Do
 
 `build.sh` turns every `meta.json` key except the `*__command` keys into an uppercase `--build-arg`;
 `./build.sh update` evaluates the `*__command` keys the way `call-update` does and rewrites
-`meta.json`. On `release`, `meta.json` has `"version": "null"`, so the builder fetches
-`archive/null.tar.gz` and fails. To build locally, put a real upstream ref in `version` and don't
-commit that edit.
+`meta.json`. Until otpravkarr publishes its first plain `X.Y.Z` release, `release`'s `meta.json` has
+`"version": "null"`, so the builder (local and `call-build`) fetches `archive/null.tar.gz` and fails.
+To build locally, put a real upstream ref in `version` and don't commit that edit.
 
 ## meta.json
 
