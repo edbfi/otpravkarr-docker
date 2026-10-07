@@ -4,6 +4,10 @@ Release builds from the latest otpravkarr release tag; none has been published y
 
 Documentation: [web.edb.fi](https://web.edb.fi/containers/otpravkarr/). The `nightly` branch builds the latest commit on `main`; do not treat a nightly image as a stable release.
 
+## Releases
+
+The release channel follows the app's latest published, non-prerelease GitHub Release with a plain `X.Y.Z` tag (release titles may say `v`). Publish only an owner-approved, tested commit from `main`; never move a published tag. A bare tag does not publish anything.
+
 ## Environment Variables
 
 ### `ORIGIN`
@@ -42,7 +46,7 @@ environment:
 
 ## Building
 
-Images are built and published by the Hotio workflows in `edbfi/base-image`. `.github/workflows/call-build.yml` runs on every push (except to a branch named `workflows`) and builds linux/amd64 and linux/arm64, then publishes `ghcr.io/edbfi/otpravkarr-docker:<branch>`, `<branch>-<commit>` and `<branch>-<version>` (from `release` also `latest`). `.github/workflows/call-update.yml` runs hourly: it evaluates the `__command` keys in `meta.json` (the latest otpravkarr tag, without a leading `v`, as `version`, the current `alpinevpn` base image as `upstream_tag_sha`) and commits any change, which triggers a new build. The workflow's smoke test is off (`test_amd64`, `test_arm64`), because the container does not start without `OTPRAVKARR_SECRET`.
+Images are built and published by the Hotio workflows in `edbfi/base-image`. `.github/workflows/call-build.yml` runs on every push (except to a branch named `workflows`) and builds linux/amd64 and linux/arm64, then publishes `ghcr.io/edbfi/otpravkarr-docker:<branch>`, `<branch>-<commit>` and `<branch>-<version>` (from `release` also `latest`). `.github/workflows/call-update.yml` runs hourly: it evaluates the `__command` keys in `meta.json` (the latest otpravkarr release tag, see [Releases](#releases), as `version`, the current `alpinevpn` base image as `upstream_tag_sha`) and commits any change, which triggers a new build. The workflow's smoke test is off (`test_amd64`, `test_arm64`), because the container does not start without `OTPRAVKARR_SECRET`.
 
 To build locally, run `./build.sh amd64` or `./build.sh arm64` from the repository root (needs `docker` and `jq`); `./build.sh update` refreshes `meta.json` the way the hourly workflow does.
 
