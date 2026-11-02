@@ -8,6 +8,6 @@
   "upstream_tag": "alpinevpn",
   "upstream_tag_sha": "alpinevpn-ebc601c",
   "upstream_tag_sha__command": "json=$(cat meta.json) && upstream_image=$(jq -re '.upstream_image' <<< \"${json}\") && upstream_image_base=$(basename \"${upstream_image}\") && upstream_tag=$(jq -re '.upstream_tag' <<< \"${json}\") && tags_json=$(curl -fsSL ${GITHUB_TOKEN:+--header \"Authorization: Bearer ${GITHUB_TOKEN}\"} \"https://web.edb.fi/containers/${upstream_image_base}-tags.json\") && commit_sha=$(jq -r --arg tag \"${upstream_tag}\" '.[$tag].commit_sha' <<< \"${tags_json}\") && upstream_tag_sha=${upstream_tag}-${commit_sha:0:7} && echo \"${upstream_tag_sha}\"",
-  "version": "587977c53be8d7d5df0249b9ea687126d75e4b31",
+  "version": "0916e7e4f0f0a44c15374ccdadb54e2cdc8f4e03",
   "version__command": "curl -fsSL ${GITHUB_TOKEN:+--header \"Authorization: Bearer ${GITHUB_TOKEN}\"} \"https://api.github.com/repos/edbfi/otpravkarr/commits/main\" | jq -re '.sha'"
 }
