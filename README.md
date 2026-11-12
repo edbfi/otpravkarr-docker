@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/otpravkarr-docker-logo.svg" alt="otpravkarr-docker logo" width="256" height="256">
+  <img src="docs/assets/otpravkarr-docker-logo.svg" alt="otpravkarr-docker logo" width="160" height="160">
 </p>
 
 <h1 align="center">otpravkarr-docker</h1>
@@ -18,11 +18,13 @@
   </a>
 </p>
 
-<!-- Logo copied verbatim from https://github.com/edbfi/repo-patches/blob/cf9cf0d625c8c7b02982c6453d899c1c2c0fb1a6/hweb-content/assets/img/image-logos/otpravkarr.svg -->
+Docker packaging for [Otpravkarr](https://github.com/edbfi/otpravkarr).
+
+[Documentation and examples](https://web.edb.fi/containers/otpravkarr/).
 
 Nightly builds from the latest commit on `main`.
 
-Documentation: [web.edb.fi](https://web.edb.fi/containers/otpravkarr/). The `release` branch builds the latest otpravkarr release tag; none has been published yet.
+The `release` branch builds the latest Otpravkarr release tag; none has been published as of 2026-11-13.
 
 ## Environment Variables
 
