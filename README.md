@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/otpravkarr-docker-logo.svg" alt="otpravkarr-docker logo" width="256" height="256">
+  <img src="docs/assets/otpravkarr-docker-logo.svg" alt="otpravkarr-docker logo" width="160" height="160">
 </p>
 
 <h1 align="center">otpravkarr-docker</h1>
@@ -18,11 +18,11 @@
   </a>
 </p>
 
-<!-- Logo copied verbatim from https://github.com/edbfi/repo-patches/blob/cf9cf0d625c8c7b02982c6453d899c1c2c0fb1a6/hweb-content/assets/img/image-logos/otpravkarr.svg -->
+Docker packaging for [Otpravkarr](https://github.com/edbfi/otpravkarr).
 
-Release builds from the latest otpravkarr release tag; none has been published yet.
+[Documentation and examples](https://web.edb.fi/containers/otpravkarr/).
 
-Documentation: [web.edb.fi](https://web.edb.fi/containers/otpravkarr/). The `nightly` branch builds the latest commit on `main`; do not treat a nightly image as a stable release.
+The `release` branch builds the latest Otpravkarr release tag; none has been published as of 2026-11-12. The `nightly` branch builds the latest commit on `main`; do not treat a nightly image as a stable release.
 
 ## Releases
 
@@ -73,4 +73,4 @@ To build locally, run `./build.sh amd64` or `./build.sh arm64` from the reposito
 ## License
 
 - Docker packaging: [GPL-3.0 license](LICENSE).
-- Application: [AGPL-3.0 source repository](https://github.com/edbfi/otpravkarr).
+- Application: [AGPL-3.0-or-later source repository](https://github.com/edbfi/otpravkarr).
