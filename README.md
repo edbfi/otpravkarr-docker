@@ -1,4 +1,24 @@
-# Otpravkarr Docker Image (Nightly)
+<p align="center">
+  <img src="docs/assets/otpravkarr-docker-logo.svg" alt="otpravkarr-docker logo" width="256" height="256">
+</p>
+
+<h1 align="center">otpravkarr-docker</h1>
+
+<p align="center"><strong>Multi-architecture Docker packaging for Otpravkarr</strong></p>
+
+<p align="center">
+  <a href="https://github.com/edbfi/otpravkarr-docker/blob/release/LICENSE" title="Docker packaging license; the application is licensed separately">
+    <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat" alt="Docker packaging license: GPL-3.0">
+  </a>
+  <a href="https://github.com/moby/moby" title="Moby source, the open-source foundation of Docker Engine">
+    <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&amp;logo=docker&amp;logoColor=white" alt="Docker">
+  </a>
+  <a href="https://git.savannah.gnu.org/cgit/bash.git/" title="GNU Bash source">
+    <img src="https://img.shields.io/badge/Bash-4EAA25?style=flat&amp;logo=gnubash&amp;logoColor=white" alt="Bash">
+  </a>
+</p>
+
+<!-- Logo copied verbatim from https://github.com/edbfi/repo-patches/blob/cf9cf0d625c8c7b02982c6453d899c1c2c0fb1a6/hweb-content/assets/img/image-logos/otpravkarr.svg -->
 
 Nightly builds from the latest commit on `main`.
 
