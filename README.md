@@ -16,6 +16,7 @@
   <a href="https://git.savannah.gnu.org/cgit/bash.git/" title="GNU Bash source">
     <img src="https://img.shields.io/badge/Bash-4EAA25?style=flat&amp;logo=gnubash&amp;logoColor=white" alt="Bash">
   </a>
+  <a href="https://github.com/edbfi/otpravkarr-docker/actions/workflows/call-build.yml?query=branch%3Arelease"><img src="https://img.shields.io/github/actions/workflow/status/edbfi/otpravkarr-docker/call-build.yml?branch=release&amp;event=push&amp;label=CI&amp;style=flat" alt="CI"></a>
 </p>
 
 Docker packaging for [Otpravkarr](https://github.com/edbfi/otpravkarr).
